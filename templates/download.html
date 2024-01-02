@@ -31,7 +31,12 @@
         <input type="text" name="link">
         <br>
         <br>
-        <button type="submit">Download mp3</button>
+        <button type="submit">Convert</button>
+        {% if show_download %}
+            <br>
+            <br>
+            <a href="../static/video.mp3" class="the_class" download="video">Download mp3</a>
+        {% endif %}
     </form>
 </body>
 </html>
