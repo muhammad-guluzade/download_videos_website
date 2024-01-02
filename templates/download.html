@@ -15,13 +15,18 @@
             color: white;
         }
         input {
-            width: 20rem;
+            width: 50%;
             height: 1.7rem;
         }
         button {
             border-radius: 15px;
             font-size: 2rem;
             padding: 0.5rem;
+        }
+        .title_display {
+            text-align: center;
+            font-size: 2rem;
+            color: white;
         }
     </style>
 </head>
@@ -31,12 +36,37 @@
         <input type="text" name="link">
         <br>
         <br>
-        <button type="submit">Convert</button>
-        {% if show_download %}
-            <br>
-            <br>
-            <a href="../static/video.mp3" class="the_class" download="video">Download mp3</a>
-        {% endif %}
+        <a id="convert" class="the_class" href="#" onclick="func(0)">Convert</a>
     </form>
+    {% if show_download %}
+        <br>
+        <br>
+        <form class="the_class" action="{{ url_for('delete_file') }}" method="get">
+            <a onclick="func(1)" href="{{ filename }}" class="the_class" download>Download mp3</a>
+        </form>
+        <br>
+        <hr class="title_display" style="width:50%;">
+        <p class="title_display">Video title: <br>{{ title }}</p>
+    {% endif %}
+    <br>
+    <p class="the_class">{{ error_message }}</p>
+    <script>
+        function func(choice)
+        {
+            if(choice == 0)
+            {
+                document.getElementById("convert").style.pointerEvents="none";
+                document.getElementById("convert").style.cursor="default";
+                document.getElementById("convert").innerText = "Converting...";
+                document.getElementsByTagName("form")[0].submit();
+            }
+            else if(choice == 1)
+            {
+                setTimeout(() => {
+                    document.getElementsByTagName("form")[1].submit();
+                }, 300);
+            }
+        }
+    </script>
 </body>
 </html>
