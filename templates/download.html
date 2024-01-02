@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download</title>
+    <style>
+        body {
+            background-color: #212529;
+            padding-top: 3rem;
+        }
+        .the_class {
+            text-align: center;
+            font-size: 3rem;
+            color: white;
+        }
+        input {
+            width: 20rem;
+            height: 1.7rem;
+        }
+        button {
+            border-radius: 15px;
+            font-size: 2rem;
+            padding: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <p class="the_class">Please enter the video link: </p>
+    <form class="the_class" action="{{ url_for('download_page') }}" method="post">
+        <input type="text" name="link">
+        <br>
+        <br>
+        <button type="submit">Download mp3</button>
+    </form>
+</body>
+</html>
