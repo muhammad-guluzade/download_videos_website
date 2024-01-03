@@ -4,8 +4,7 @@ from flask import Flask, request, redirect, render_template
 
 app = Flask(__name__)
 FILENAME = ""
-os.mkdir("/static")
-PARAMS = {'extract_audio': True, 'format': 'bestaudio', 'outtmpl': '/static/%(title)s.mp3'}
+PARAMS = {'extract_audio': True, 'format': 'bestaudio', 'outtmpl': 'static/%(title)s.mp3'}
 
 @app.route("/", methods=["GET", "POST"])
 def download_page():
@@ -24,7 +23,7 @@ def download_page():
             return render_template("download.html",
                                    show_download=False,
                                    error_message=f"{e}")
-        
+    
         FILENAME = f"static/{video.extract_info(request.form['link'], download=False).get('title', None)}.mp3"
         return render_template("download.html",
                                show_download=True,
