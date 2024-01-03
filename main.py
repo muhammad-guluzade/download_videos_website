@@ -4,7 +4,7 @@ from flask import Flask, request, redirect, render_template
 
 app = Flask(__name__)
 FILENAME = ""
-PARAMS = {'extract_audio': True, 'format': 'bestaudio', 'outtmpl': 'static/%(title)s.mp3'}
+PARAMS = {'extract_audio': True, 'format': 'bestaudio', "outtmpl": "static/video.mp3"}
 
 @app.route("/", methods=["GET", "POST"])
 def download_page():
@@ -12,24 +12,18 @@ def download_page():
     if request.method == "POST":
         try:
             video = yt_dlp.YoutubeDL(PARAMS)
-        except Exception as e:
-            return render_template("download.html",
-                                   show_download=False,
-                                   error_message="You entered invalid link")
-        
-        try:
             video.download(request.form['link'])
         except Exception:
             return render_template("download.html",
                                    show_download=False,
-                                   error_message="You entered invalid link")
+                                   error_message=f"You entered invalid url.")
     
-        FILENAME = f"static/{os.listdir('static')[0]}"
+        FILENAME = f"static/video.mp3"
 
         return render_template("download.html",
                                show_download=True,
                                filename=FILENAME,
-                               title=FILENAME.strip("static/").strip(".mp3"))
+                               title=video.extract_info(request.form['link']).get('title'))
     return render_template("download.html",
                            show_download=False)
 
