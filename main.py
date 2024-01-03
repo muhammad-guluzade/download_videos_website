@@ -4,6 +4,7 @@ from flask import Flask, request, redirect, render_template
 
 app = Flask(__name__)
 FILENAME = ""
+os.mkdir("/static")
 PARAMS = {'extract_audio': True, 'format': 'bestaudio', 'outtmpl': '/static/%(title)s.mp3'}
 
 @app.route("/", methods=["GET", "POST"])
