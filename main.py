@@ -1,31 +1,30 @@
 import os
-import pytube
-from pytube import YouTube
+import yt_dlp
 from flask import Flask, request, redirect, render_template
 
 app = Flask(__name__)
 FILENAME = ""
+PARAMS = {'extract_audio': True, 'format': 'bestaudio', 'outtmpl': '/static/%(title)s.mp3'}
 
 @app.route("/", methods=["GET", "POST"])
 def download_page():
     global session, FILENAME
     if request.method == "POST":
         try:
-            video = YouTube(request.form['link'])
-        except pytube.exceptions.RegexMatchError:
+            video = yt_dlp.YoutubeDL(PARAMS)
+        except Exception as e:
             return render_template("download.html",
                                    show_download=False,
                                    error_message="You entered invalid link")
         
         try:
-            stream = video.streams.filter(only_audio=True).first()
-        except pytube.exceptions.VideoUnavailable:
+            video.download(request.form['link'])
+        except Exception:
             return render_template("download.html",
                                    show_download=False,
                                    error_message="You entered invalid link")
         
-        FILENAME = f"static/{video.title}.mp3"
-        stream.download(filename=FILENAME)
+        FILENAME = f"static/{video.extract_info(request.form['link'], download=False).get('title', None)}.mp3"
         return render_template("download.html",
                                show_download=True,
                                filename=FILENAME,
