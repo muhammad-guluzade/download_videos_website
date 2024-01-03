@@ -17,12 +17,9 @@ def download_page():
                                    show_download=False,
                                    error_message="You entered invalid link1")
         
-        try:
-            video.download(request.form['link'])
-        except Exception:
-            return render_template("download.html",
-                                   show_download=False,
-                                   error_message="You entered invalid link2")
+        
+        video.download(request.form['link'])
+        
         
         FILENAME = f"static/{video.extract_info(request.form['link'], download=False).get('title', None)}.mp3"
         return render_template("download.html",
