@@ -31,7 +31,7 @@ def download_page():
             return render_template("download.html",
                                    show_download=True,
                                    filename=FILENAME,
-                                   title=FILENAME.strip("mp3").strip("/static").decode("utf-8"))
+                                   title=FILENAME)
         return render_template("download.html",
                                show_download=False)
     except Exception as e:
