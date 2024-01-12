@@ -25,7 +25,7 @@ def download_page():
                                        show_download=False,
                                        error_message="You entered invalid link")
     
-            FILENAME = f"static/{video.title.replace('/', '|'}.mp3"
+            FILENAME = f"static/{video.title.replace('/', '|').replace('\', '|')}.mp3"
             stream.download(filename=FILENAME)
             return render_template("download.html",
                                    show_download=True,
