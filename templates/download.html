@@ -32,7 +32,7 @@
 </head>
 <body>
     <p class="the_class">Please enter the video link: </p>
-    <form class="the_class" action="{{ url_for('download_page') }}" method="post">
+    <form onsubmit="disable_buttons()" class="the_class" action="{{ url_for('download_page') }}" method="post">
         <input type="text" name="link">
         <br>
         <br>
@@ -51,6 +51,13 @@
     <br>
     <p class="the_class">{{ error_message }}</p>
     <script>
+        function disable_buttons(){
+            convert_button = document.getElementsByTagName("a")[0];
+            download_button = document.getElementsByTagName("a")[1];
+
+            convert_button.style.pointerEvents = "none";
+            download_button.style.pointerEvents = "none";
+        }
         function func(choice)
         {
             if(choice == 0)
