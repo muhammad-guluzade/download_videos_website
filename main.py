@@ -24,13 +24,13 @@ def download_page():
                 return render_template("download.html",
                                        show_download=False,
                                        error_message="You entered invalid link")
-    
-            FILENAME = f"static/{video.title.replace('/', '|').replace('\', '|')}.mp3"
+            title = video.title.replace('/', '|').replace('\\', '|')
+            FILENAME = f"static/{title}.mp3"
             stream.download(filename=FILENAME)
             return render_template("download.html",
                                    show_download=True,
                                    filename=FILENAME,
-                                   title=FILENAME)
+                                   title=title)
         return render_template("download.html",
                                show_download=False)
     except Exception as e:
