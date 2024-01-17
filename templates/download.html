@@ -32,18 +32,30 @@
 </head>
 <body>
     <p class="the_class">Please enter the video link: </p>
-    <form onsubmit="disable_buttons()" class="the_class" action="{{ url_for('download_page') }}" method="post">
+    <form onsubmit="disable_buttons()" class="the_class" action="{{ url_for('download_page', type='mp3') }}" method="post">
         <input type="text" name="link">
         <br>
         <br>
         <a id="convert" class="the_class" href="#" onclick="func(0)">Convert</a>
     </form>
+    
     {% if show_download %}
         <br>
         <br>
         <form class="the_class" action="{{ url_for('delete_file') }}" method="get">
             <a download href="{{ filename }}" class="the_class">Download mp3</a>
         </form>
+        {% if video_360 %}
+            <form class="the_class" action="{{ url_for('delete_file') }}" method="get">
+                <a download href="{{ filename_360 }}" class="the_class">Download 360p</a>
+            </form>
+        {% endif %}
+
+        {% if video_720 %}
+            <form class="the_class" action="{{ url_for('delete_file') }}" method="get">
+                <a download href="{{ filename_360 }}" class="the_class">Download 720p</a>
+            </form>
+        {% endif %}
         <br>
         <hr class="title_display" style="width:50%;">
         <p class="title_display">Video title: <br>{{ title }}</p>
@@ -72,6 +84,11 @@
                 setTimeout(() => {
                     document.getElementsByTagName("form")[1].submit();
                 }, 300);
+            }
+        }
+        function prevent_enter_submit() {
+            if(event.keyCode === 13) {
+                return false;
             }
         }
     </script>
