@@ -13,9 +13,7 @@ def download_page():
         
         if request.method == "POST":
             try:
-                video = YouTube(request.form['link'],
-                                use_oauth=True,
-                                allow_oauth_cache=True)
+                video = YouTube(request.form['link'])
             except pytube.exceptions.RegexMatchError as e:
                 return render_template("download.html",
                                        show_download=False,
