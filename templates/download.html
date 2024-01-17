@@ -32,7 +32,7 @@
 </head>
 <body>
     <p class="the_class">Please enter the video link: </p>
-    <form onsubmit="disable_buttons()" class="the_class" action="{{ url_for('download_page', type='mp3') }}" method="post">
+    <form onsubmit="disable_buttons()" class="the_class" action="{{ url_for('download_page') }}" method="post">
         <input type="text" name="link">
         <br>
         <br>
