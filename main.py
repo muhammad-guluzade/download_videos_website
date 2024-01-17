@@ -58,11 +58,5 @@ def download_page():
                                        error_message=f"{e}")
 
 
-@app.route("/delete")
-def delete_file():
-    os.remove(FILENAME)
-    return redirect("/")
-
-
 if __name__ == "__main__":
     app.run(debug=True)
