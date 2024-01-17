@@ -42,17 +42,17 @@
     {% if show_download %}
         <br>
         <br>
-        <form class="the_class" action="{{ url_for('delete_file') }}" method="get">
+        <form class="the_class" action="" method="get">
             <a download href="{{ filename }}" class="the_class">Download mp3</a>
         </form>
         {% if video_360 %}
-            <form class="the_class" action="{{ url_for('delete_file') }}" method="get">
+            <form class="the_class" action="" method="get">
                 <a download href="{{ filename_360 }}" class="the_class">Download 360p</a>
             </form>
         {% endif %}
 
         {% if video_720 %}
-            <form class="the_class" action="{{ url_for('delete_file') }}" method="get">
+            <form class="the_class" action="" method="get">
                 <a download href="{{ filename_360 }}" class="the_class">Download 720p</a>
             </form>
         {% endif %}
