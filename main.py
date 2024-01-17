@@ -13,21 +13,23 @@ def download_page():
         
         if request.method == "POST":
             try:
-                video = YouTube(request.form['link'])
-            except pytube.exceptions.RegexMatchError:
+                video = YouTube(request.form['link'],
+                                use_oauth=True,
+                                allow_oauth_cache=True)
+            except pytube.exceptions.RegexMatchError as e:
                 return render_template("download.html",
                                        show_download=False,
-                                       error_message="You entered invalid link")
+                                       error_message=e)
     
             try:
                 stream = video.streams.filter(only_audio=True).first()
                 stream_mp4_720 = video.streams.filter(mime_type="video/mp4", res="720p").first()
                 stream_mp4_360 = video.streams.filter(mime_type="video/mp4", res="360p").first()
                 
-            except pytube.exceptions.VideoUnavailable:
+            except pytube.exceptions.VideoUnavailable as e:
                 return render_template("download.html",
                                        show_download=False,
-                                       error_message="You entered invalid link")
+                                       error_message=e)
             title = video.title.replace('/', '|').replace('\\', '|')
             FILENAME = f"static/{title}.mp3"
             FILENAME_360 = f"static/{title}360.mp4"
