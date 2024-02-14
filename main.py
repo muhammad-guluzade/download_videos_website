@@ -29,9 +29,9 @@ def download_page():
                                        show_download=False,
                                        error_message=e)
             title = video.title.replace('/', '|').replace('\\', '|')
-            FILENAME = f"tmp/{title}.mp3"
-            FILENAME_360 = f"tmp/{title}360.mp4"
-            FILENAME_720 = f"tmp/{title}720.mp4"
+            FILENAME = f"static/{title}.mp3"
+            FILENAME_360 = f"static/{title}360.mp4"
+            FILENAME_720 = f"static/{title}720.mp4"
             stream.download(filename=FILENAME)
 
             if stream_mp4_360:
